@@ -1,0 +1,74 @@
+<!DOCTYPE html>  
+<html> 
+<head>  
+<title>Token Decoder</title>  
+<h1>Token Decoder</h1>
+</head>  
+<body>  
+
+<form name=f>  
+Input: <br>
+<textarea name=input rows=10 cols=150 wrap=virtual ></textarea> 
+<br><br>
+<input type="button" onClick="SampleInput()" Value="Sample Input Token" />
+<input type="button" onClick="Decode()" Value="Decode" />  
+
+<br><br>
+Output: <br>
+<textarea name=output rows=20 cols=150 wrap=virtual></textarea> 
+<br>
+
+</form>  
+
+<script type="text/javascript"> 
+
+function SampleInput() {
+var strToken='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTAzMTkyMTUsIm5iZiI6MTQ5MDMxOTE1NSwiZXhwIjoxNDkwMzE5MzM1LCJqdGkiOiJFVTN4dkt6R3FVVWdLQ3QyeXBCa0MyUWVvdU04TTNFcyIsInR5cCI6ImF1dGhucmVzcG9uc2UiLCJodHRwczovL2FhZi5lZHUuYXUvYXR0cmlidXRlcyI6eyJjbiI6IlJvbW1lbCBHYWRkaSIsImRpc3BsYXluYW1lIjoiUm9tbWVsIEdhZGRpIiwic3VybmFtZSI6IkdhZGRpIiwiZ2l2ZW5uYW1lIjoiUm9tbWVsIiwibWFpbCI6IlMzNjE5MTczQHN0dWRlbnQucm1pdC5lZHUuYXUiLCJlZHVwZXJzb25zY29wZWRhZmZpbGlhdGlvbiI6InN0dWRlbnRAcm1pdC5lZHUuYXUiLCJlZHVwZXJzb25wcmluY2lwYWxuYW1lIjoiczM2MTkxNzNAcm1pdC5lZHUuYXUiLCJlZHVwZXJzb250YXJnZXRlZGlkIjoiaHR0cHM6Ly9yYXBpZC5hYWYuZWR1LmF1IWh0dHBzOi8vYWFmLWVjaG8uYXBwc3BvdC5jb20hMmF4VG5za1k2TmFBUVQySkUyMG9BVnBCOEZFPSJ9LCJpc3MiOiJodHRwczovL3JhcGlkLmFhZi5lZHUuYXUiLCJhdWQiOiJodHRwczovL2FhZi1lY2hvLmFwcHNwb3QuY29tIiwic3ViIjoiaHR0cHM6Ly9yYXBpZC5hYWYuZWR1LmF1IWh0dHBzOi8vYWFmLWVjaG8uYXBwc3BvdC5jb20hMmF4VG5za1k2TmFBUVQySkUyMG9BVnBCOEZFPSJ9.RvbCpvuLedwNOl0TpchOJU4DA8bOoIE1tjrqE9HGmOA'
+
+f.input.value = strToken
+
+}
+
+
+function Decode() {
+
+var strInput = f.input.value
+var objToken = parseJwt(strInput)
+
+f.output.value = "aud: " + objToken['aud'] + "\n" +
+	"iss: " + objToken['iss'] + "\n" + 
+	"jti: " + objToken['jti'] + "\n" + 
+	"sub: " + objToken['sub'] + "\n" + 
+	"typ: " + objToken['typ'] + "\n" + 
+	"nbf: " + objToken['nbf'] + "\n" + 
+	"exp: " + objToken['exp'] + "\n" + 
+	"iat: " + objToken['iat'] + "\n" + 
+	"https://aaf.edu.au/attributes: " + "\n" + 
+	"  cn: " + objToken['https://aaf.edu.au/attributes'].cn + "\n" +
+	"  displayname: " + objToken['https://aaf.edu.au/attributes'].displayname + "\n" +
+	"  edupersonprincipalname: " + objToken['https://aaf.edu.au/attributes'].edupersonprincipalname + "\n" +
+	"  edupersonscopedaffiliation: " + objToken['https://aaf.edu.au/attributes'].edupersonscopedaffiliation + "\n" +
+	"  edupersontargetedid: " + objToken['https://aaf.edu.au/attributes'].edupersontargetedid + "\n" +
+	"  givenname: " + objToken['https://aaf.edu.au/attributes'].givenname + "\n" +
+	"  surname: " + objToken['https://aaf.edu.au/attributes'].surname + "\n" +
+	"  mail: " + objToken['https://aaf.edu.au/attributes'].mail 
+
+	
+	
+	
+function parseJwt (token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            return JSON.parse(window.atob(base64));
+        };
+		
+//	f.output.value = output
+
+}
+
+
+</script>
+
+
+</body>  
+</html>  
